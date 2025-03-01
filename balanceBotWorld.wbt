@@ -1,0 +1,85 @@
+#VRML_SIM R2025a utf8
+
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/objects/backgrounds/protos/TexturedBackground.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/objects/backgrounds/protos/TexturedBackgroundLight.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/objects/floors/protos/RectangleArena.proto"
+
+WorldInfo {
+}
+Viewpoint {
+  orientation 0.20693360255185705 -0.08133023580880011 -0.9749686543054578 3.8460644763563097
+  position 3.6457668506344483 -2.6441112506891025 2.1281880959513644
+}
+TexturedBackground {
+}
+TexturedBackgroundLight {
+}
+DEF Balance_Bot Robot {
+  translation -0.006386904325974578 -0.0015748878232536472 0.09592822913317436
+  rotation 0.9288226185754163 0.345083374589617 0.13492964020017578 0.012955237896576101
+  children [
+    Gyro {
+      translation 0 0 0.1
+      physics Physics {
+      }
+    }
+    DEF Body Pose {
+      translation 0 0 0.2
+      children [
+        Shape {
+          appearance PBRAppearance {
+            baseColor 0.333333 0.333333 1
+          }
+          geometry Box {
+            size 0.05 0.15 0.35
+          }
+        }
+      ]
+    }
+    HingeJoint {
+      jointParameters HingeJointParameters {
+        position 5.588145483295375
+        axis 0 1 0
+        anchor 0 0 -0.04
+      }
+      device [
+        RotationalMotor {
+          name "motor"
+          acceleration 10
+          maxVelocity 1000
+        }
+      ]
+      endPoint Solid {
+        translation -0.001194411935604163 0.00044170436761076335 -0.03844672716107942
+        rotation 0.8887599805287225 -0.326303353878656 0.32191896225311895 1.6751541879281253
+        children [
+          DEF Wheel Shape {
+            appearance PBRAppearance {
+              baseColor 0.333333 0.333333 1
+            }
+            geometry Cylinder {
+              height 0.15
+              radius 0.1
+            }
+          }
+        ]
+        boundingObject USE Wheel
+        physics Physics {
+        }
+      }
+    }
+  ]
+  name "robot(1)"
+  boundingObject USE Body
+  physics Physics {
+    mass 10
+    centerOfMass [
+      0 0 0
+    ]
+  }
+  controller "balanceBotController"
+}
+RectangleArena {
+  translation -0.04 0.03 -0.03
+  floorSize 5 5
+}
